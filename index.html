@@ -17,215 +17,411 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f4efff;
+
+  /* COLORFUL BACKGROUND */
+  background: linear-gradient(
+    135deg,
+    #ffd6e7,
+    #d9f3ff,
+    #fff2b8,
+    #dff7df
+  );
+
   font-family: Arial, sans-serif;
 }
 
 .game {
   width: 90%;
   max-width: 700px;
-  background: white;
+
+  background: #ffffff;
+
   border-radius: 30px;
+
   padding: 40px 35px;
+
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+
+  box-shadow: 0 12px 35px rgba(0,0,0,0.15);
 }
+
+/* TITLE */
 
 h1 {
   margin: 0 0 25px;
+
   font-size: 38px;
-  color: #222;
+
+  color: #ff6b8a;
+
+  text-shadow: 2px 2px 0 #ffd6e7;
 }
+
+/* INFO */
 
 .info {
   display: flex;
   justify-content: space-between;
+
   font-size: 21px;
+
   margin-bottom: 25px;
-  color: #333;
+
+  color: #555;
 }
 
-#question {
-  font-size: 80px;
+.info span {
+  background: #fff3b0;
+
+  padding: 8px 15px;
+
+  border-radius: 15px;
+
   font-weight: bold;
-  margin: 30px 0 45px;
-  color: #111;
 }
+
+/* QUESTION BOX */
+
+#question {
+  font-size: 75px;
+
+  font-weight: bold;
+
+  margin: 25px 0 40px;
+
+  /* COLORFUL QUESTION BOX */
+  background: linear-gradient(
+    135deg,
+    #b8e8ff,
+    #d9c8ff
+  );
+
+  color: #4b3f72;
+
+  border-radius: 25px;
+
+  padding: 30px 15px;
+
+  border: 5px solid #ffffff;
+
+  box-shadow:
+    0 6px 0 #b8a9df,
+    0 10px 20px rgba(0,0,0,0.12);
+}
+
+/* ANSWERS */
 
 .answers {
   display: grid;
+
   grid-template-columns: repeat(3, 1fr);
+
   gap: 18px;
 }
 
 .answer {
   border: none;
+
   border-radius: 20px;
+
   padding: 25px 10px;
+
   font-size: 36px;
+
   font-weight: bold;
-  background: #eeeeee;
+
+  color: white;
+
   cursor: pointer;
-  transition: transform 0.15s;
+
+  transition: 0.15s;
+
+  box-shadow: 0 6px 0 rgba(0,0,0,0.15);
+}
+
+/* THREE ANSWER COLORS */
+
+.answer:nth-child(1) {
+  background: #ff8fab;
+}
+
+.answer:nth-child(2) {
+  background: #6ecbff;
+}
+
+.answer:nth-child(3) {
+  background: #7ed957;
 }
 
 .answer:hover {
-  transform: scale(1.05);
+  transform: translateY(-4px) scale(1.03);
+}
+
+.answer:active {
+  transform: translateY(3px);
 }
 
 .answer:disabled {
   cursor: default;
 }
 
+/* FEEDBACK */
+
 #feedback {
   height: 40px;
+
   margin-top: 25px;
-  font-size: 30px;
+
+  font-size: 28px;
+
   font-weight: bold;
+
+  color: #555;
 }
+
+/* BUTTONS */
 
 #next,
 #restart,
 #start {
+
   border: none;
-  border-radius: 15px;
+
+  border-radius: 18px;
+
   padding: 15px 35px;
+
   font-size: 21px;
+
   font-weight: bold;
+
   cursor: pointer;
+
   margin-top: 20px;
+
+  color: white;
+
+  box-shadow: 0 5px 0 rgba(0,0,0,0.15);
+
+  transition: 0.15s;
 }
 
 #start {
+
+  background: #ff9f43;
+
   margin-top: 10px;
 }
 
 #next {
+
+  background: #6c63ff;
+
   display: none;
 }
 
 #restart {
+
+  background: #ff6b8a;
+
   display: none;
 }
 
-#result {
-  font-size: 32px;
-  font-weight: bold;
-  margin: 30px 0;
+#start:hover,
+#next:hover,
+#restart:hover {
+
+  transform: translateY(-3px);
 }
+
+#start:active,
+#next:active,
+#restart:active {
+
+  transform: translateY(2px);
+}
+
+/* RESULT */
+
+#result {
+
+  font-size: 32px;
+
+  font-weight: bold;
+
+  margin: 30px 0;
+
+  color: #6c63ff;
+
+  background: #fff3b0;
+
+  border-radius: 20px;
+
+  padding: 20px;
+}
+
+/* START TEXT */
+
+.start-text {
+
+  font-size: 24px;
+
+  margin-bottom: 20px;
+
+  color: #666;
+}
+
+/* HIDDEN */
 
 .hidden {
   display: none !important;
 }
 
-.start-text {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
 
-/* Tablet / HP */
+/* TABLET / HP */
+
 @media (max-width: 600px) {
 
   .game {
+
     width: 94%;
+
     padding: 30px 20px;
   }
 
   h1 {
+
     font-size: 30px;
   }
 
   .info {
-    font-size: 17px;
+
+    font-size: 15px;
+  }
+
+  .info span {
+
+    padding: 6px 10px;
   }
 
   #question {
-    font-size: 60px;
+
+    font-size: 55px;
+
     margin: 25px 0 35px;
+
+    padding: 25px 10px;
   }
 
   .answers {
+
     gap: 10px;
   }
 
   .answer {
+
     padding: 20px 5px;
+
     font-size: 28px;
   }
+
 }
 </style>
 </head>
+
 
 <body>
 
 <div class="game">
 
-  <h1>SUBTRACTION</h1>
+  <h1>🌈 SUBTRACTION 🌈</h1>
+
 
   <!-- START SCREEN -->
+
   <div id="startScreen">
 
     <p class="start-text">
-      20 Questions
+      ⭐ 20 Questions ⭐
     </p>
 
     <button id="start" onclick="startGame()">
-      START
+      🚀 START
     </button>
 
   </div>
 
 
   <!-- GAME SCREEN -->
+
   <div id="gameScreen" class="hidden">
 
     <div class="info">
 
       <span>
-        Question
+        📝 Question
         <span id="number">1</span>/20
       </span>
 
       <span>
-        Score:
+        ⭐ Score:
         <span id="score">0</span>
       </span>
 
     </div>
 
 
+    <!-- QUESTION BOX -->
+
     <div id="question">
       8 − 3 = ?
     </div>
 
 
+    <!-- ANSWERS -->
+
     <div class="answers">
 
-      <button class="answer" onclick="checkAnswer(0)"></button>
+      <button
+        class="answer"
+        onclick="checkAnswer(0)">
+      </button>
 
-      <button class="answer" onclick="checkAnswer(1)"></button>
+      <button
+        class="answer"
+        onclick="checkAnswer(1)">
+      </button>
 
-      <button class="answer" onclick="checkAnswer(2)"></button>
+      <button
+        class="answer"
+        onclick="checkAnswer(2)">
+      </button>
 
     </div>
 
 
     <div id="feedback"></div>
 
-    <button id="next" onclick="nextQuestion()">
-      NEXT
+
+    <button
+      id="next"
+      onclick="nextQuestion()">
+      NEXT ➜
     </button>
 
   </div>
 
 
   <!-- RESULT SCREEN -->
+
   <div id="resultScreen" class="hidden">
 
     <div id="result"></div>
 
-    <button id="restart" onclick="restartGame()">
-      PLAY AGAIN
+    <button
+      id="restart"
+      onclick="restartGame()">
+      🔄 PLAY AGAIN
     </button>
 
   </div>
@@ -236,45 +432,61 @@ h1 {
 <script>
 
 let currentQuestion = 0;
+
 let score = 0;
+
 let correctAnswer = 0;
+
 let choices = [];
 
+
+/* START GAME */
 
 function startGame() {
 
   currentQuestion = 0;
+
   score = 0;
+
 
   document
     .getElementById("startScreen")
     .classList.add("hidden");
 
+
   document
     .getElementById("resultScreen")
     .classList.add("hidden");
+
 
   document
     .getElementById("gameScreen")
     .classList.remove("hidden");
 
+
   document
     .getElementById("score")
     .textContent = score;
+
 
   showQuestion();
 }
 
 
+/* SHOW QUESTION */
+
 function showQuestion() {
 
   document
     .getElementById("number")
-    .textContent = currentQuestion + 1;
+    .textContent =
+      currentQuestion + 1;
+
 
   document
     .getElementById("feedback")
     .textContent = "";
+
 
   document
     .getElementById("next")
@@ -289,23 +501,25 @@ function showQuestion() {
 
     btn.disabled = false;
 
-    btn.style.background = "#eeeeee";
-
   });
 
 
   /*
     SUBTRACTION WITHIN 10
-    Answer will never be negative
   */
 
   const minuend =
-    Math.floor(Math.random() * 11);
+    Math.floor(
+      Math.random() * 11
+    );
+
 
   const subtrahend =
     Math.floor(
-      Math.random() * (minuend + 1)
+      Math.random() *
+      (minuend + 1)
     );
+
 
   correctAnswer =
     minuend - subtrahend;
@@ -321,13 +535,16 @@ function showQuestion() {
 
 
   /*
-    Create 2 wrong answers
+    CREATE 2 WRONG ANSWERS
   */
 
   while (choices.length < 3) {
 
     let wrong =
-      Math.floor(Math.random() * 11);
+      Math.floor(
+        Math.random() * 11
+      );
+
 
     if (!choices.includes(wrong)) {
 
@@ -339,7 +556,7 @@ function showQuestion() {
 
 
   /*
-    Randomize answer positions
+    RANDOMIZE ANSWERS
   */
 
   choices.sort(function() {
@@ -351,24 +568,28 @@ function showQuestion() {
 
   buttons.forEach(function(btn, i) {
 
-    btn.textContent = choices[i];
+    btn.textContent =
+      choices[i];
 
   });
 
 }
 
 
+/* CHECK ANSWER */
+
 function checkAnswer(index) {
 
   const buttons =
     document.querySelectorAll(".answer");
+
 
   const selected =
     choices[index];
 
 
   /*
-    Prevent multiple clicks
+    PREVENT MULTIPLE CLICKS
   */
 
   buttons.forEach(function(btn) {
@@ -379,50 +600,62 @@ function checkAnswer(index) {
 
 
   /*
-    CORRECT ANSWER
+    CORRECT
   */
 
   if (selected === correctAnswer) {
 
     score++;
 
+
     document
       .getElementById("score")
       .textContent = score;
 
+
     document
       .getElementById("feedback")
-      .textContent = "✓ Correct!";
+      .textContent =
+        "🎉 Correct! Great job!";
+
 
     buttons[index]
-      .style.background = "#b8e6b8";
+      .style.background =
+        "#45c486";
 
   }
 
 
   /*
-    WRONG ANSWER
+    WRONG
   */
 
   else {
 
     document
       .getElementById("feedback")
-      .textContent = "✗ Try again!";
+      .textContent =
+        "😊 Try again!";
+
 
     buttons[index]
-      .style.background = "#f3b5b5";
+      .style.background =
+        "#ff6b6b";
 
 
     /*
-      Show the correct answer
+      SHOW CORRECT ANSWER
     */
 
     buttons.forEach(function(btn, i) {
 
-      if (choices[i] === correctAnswer) {
+      if (
+        choices[i] ===
+        correctAnswer
+      ) {
 
-        btn.style.background = "#b8e6b8";
+        btn.style.background =
+          "#45c486";
 
       }
 
@@ -432,15 +665,18 @@ function checkAnswer(index) {
 
 
   /*
-    Show NEXT button
+    SHOW NEXT BUTTON
   */
 
   document
     .getElementById("next")
-    .style.display = "inline-block";
+    .style.display =
+      "inline-block";
 
 }
 
+
+/* NEXT QUESTION */
 
 function nextQuestion() {
 
@@ -462,11 +698,14 @@ function nextQuestion() {
 }
 
 
+/* RESULT */
+
 function showResult() {
 
   document
     .getElementById("gameScreen")
     .classList.add("hidden");
+
 
   document
     .getElementById("resultScreen")
@@ -476,15 +715,18 @@ function showResult() {
   document
     .getElementById("result")
     .textContent =
-      `Your Score: ${score} / 20`;
+      `🎉 Your Score: ${score} / 20`;
 
 
   document
     .getElementById("restart")
-    .style.display = "inline-block";
+    .style.display =
+      "inline-block";
 
 }
 
+
+/* RESTART */
 
 function restartGame() {
 
@@ -492,9 +734,11 @@ function restartGame() {
     .getElementById("resultScreen")
     .classList.add("hidden");
 
+
   document
     .getElementById("gameScreen")
     .classList.remove("hidden");
+
 
   startGame();
 
