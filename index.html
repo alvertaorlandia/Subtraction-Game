@@ -1,0 +1,256 @@
+from pathlib import Path
+
+html = r'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subtraction Game</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f7f3ff;
+    font-family: Arial, sans-serif;
+  }
+
+  .game {
+    width: min(92vw, 700px);
+    text-align: center;
+    background: white;
+    border-radius: 28px;
+    padding: 35px 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.12);
+  }
+
+  h1 {
+    margin: 0 0 15px;
+    font-size: 32px;
+  }
+
+  .info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    margin-bottom: 35px;
+  }
+
+  #question {
+    font-size: clamp(55px, 12vw, 90px);
+    font-weight: bold;
+    margin: 20px 0 35px;
+  }
+
+  .answers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+
+  .answer {
+    border: none;
+    border-radius: 18px;
+    padding: 25px 10px;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #eee;
+    transition: .15s;
+  }
+
+  .answer:hover {
+    transform: scale(1.04);
+  }
+
+  .answer:disabled {
+    cursor: default;
+  }
+
+  #feedback {
+    min-height: 35px;
+    margin-top: 25px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  #next, #restart {
+    display: none;
+    margin: 20px auto 0;
+    border: none;
+    border-radius: 14px;
+    padding: 14px 28px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  #start {
+    border: none;
+    border-radius: 14px;
+    padding: 15px 35px;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .hidden { display: none !important; }
+
+  #result {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 25px 0;
+  }
+
+  @media (max-width: 500px) {
+    .game { padding: 25px 15px; }
+    .answer { padding: 20px 5px; font-size: 27px; }
+    .info { font-size: 17px; }
+  }
+</style>
+</head>
+
+<body>
+<div class="game">
+  <h1 id="title">SUBTRACTION</h1>
+
+  <div id="startScreen">
+    <p style="font-size:22px;">20 Questions</p>
+    <button id="start" onclick="startGame()">START</button>
+  </div>
+
+  <div id="gameScreen" class="hidden">
+    <div class="info">
+      <span>Question <span id="number">1</span>/20</span>
+      <span>Score: <span id="score">0</span></span>
+    </div>
+
+    <div id="question">8 − 3 = ?</div>
+
+    <div class="answers">
+      <button class="answer" onclick="checkAnswer(0)"></button>
+      <button class="answer" onclick="checkAnswer(1)"></button>
+      <button class="answer" onclick="checkAnswer(2)"></button>
+    </div>
+
+    <div id="feedback"></div>
+    <button id="next" onclick="nextQuestion()">NEXT</button>
+  </div>
+
+  <div id="resultScreen" class="hidden">
+    <div id="result"></div>
+    <button id="restart" onclick="restartGame()">PLAY AGAIN</button>
+  </div>
+</div>
+
+<script>
+let currentQuestion = 0;
+let score = 0;
+let correctAnswer = 0;
+let choices = [];
+
+function startGame() {
+  currentQuestion = 0;
+  score = 0;
+  document.getElementById("startScreen").classList.add("hidden");
+  document.getElementById("resultScreen").classList.add("hidden");
+  document.getElementById("gameScreen").classList.remove("hidden");
+  document.getElementById("score").textContent = score;
+  showQuestion();
+}
+
+function showQuestion() {
+  document.getElementById("number").textContent = currentQuestion + 1;
+  document.getElementById("feedback").textContent = "";
+  document.getElementById("next").style.display = "none";
+
+  const buttons = document.querySelectorAll(".answer");
+  buttons.forEach(btn => {
+    btn.disabled = false;
+    btn.style.background = "#eee";
+  });
+
+  // Subtraction within 10, with non-negative answers
+  const minuend = Math.floor(Math.random() * 11);
+  const subtrahend = Math.floor(Math.random() * (minuend + 1));
+  correctAnswer = minuend - subtrahend;
+
+  document.getElementById("question").textContent =
+    `${minuend} − ${subtrahend} = ?`;
+
+  choices = [correctAnswer];
+
+  while (choices.length < 3) {
+    let wrong = Math.floor(Math.random() * 11);
+    if (!choices.includes(wrong)) choices.push(wrong);
+  }
+
+  choices.sort(() => Math.random() - 0.5);
+
+  buttons.forEach((btn, i) => {
+    btn.textContent = choices[i];
+  });
+}
+
+function checkAnswer(index) {
+  const buttons = document.querySelectorAll(".answer");
+  const selected = choices[index];
+
+  buttons.forEach(btn => btn.disabled = true);
+
+  if (selected === correctAnswer) {
+    score++;
+    document.getElementById("score").textContent = score;
+    document.getElementById("feedback").textContent = "✓";
+    buttons[index].style.background = "#b8e6b8";
+  } else {
+    document.getElementById("feedback").textContent =
+      "✗";
+    buttons[index].style.background = "#f3b5b5";
+
+    buttons.forEach((btn, i) => {
+      if (choices[i] === correctAnswer) {
+        btn.style.background = "#b8e6b8";
+      }
+    });
+  }
+
+  document.getElementById("next").style.display = "block";
+}
+
+function nextQuestion() {
+  currentQuestion++;
+
+  if (currentQuestion >= 20) {
+    showResult();
+  } else {
+    showQuestion();
+  }
+}
+
+function showResult() {
+  document.getElementById("gameScreen").classList.add("hidden");
+  document.getElementById("resultScreen").classList.remove("hidden");
+
+  document.getElementById("result").textContent =
+    `${score} / 20`;
+
+  document.getElementById("restart").style.display = "inline-block";
+}
+
+function restartGame() {
+  document.getElementById("resultScreen").classList.add("hidden");
+  document.getElementById("gameScreen").classList.remove("hidden");
+  startGame();
+}
+</script>
+</body>
+</html>
+'''
+
+path = Path("/mnt/data/subtraction_game.html")
+path.write_text(html, encoding="utf-8")
+print(f"File created: {path}")
